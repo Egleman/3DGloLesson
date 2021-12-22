@@ -1,4 +1,4 @@
-import one from './modules/one';
+import timer from './modules/timer';
 import two from './modules/two';
-one();
+timer('22 december 2021');
 two();
