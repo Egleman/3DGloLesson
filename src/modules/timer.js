@@ -15,7 +15,11 @@ const timer = (deadLine) => {
 
         if (timeRemaining <= 0) {
             clearInterval(timerId);
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
         }
+
         return {
             timeRemaining: timeRemaining,
             hours: hours,
