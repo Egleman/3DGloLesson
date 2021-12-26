@@ -10,10 +10,12 @@ const regex = () => {
 
 
      function customTrim(val) {
-         val = val.replace(/\s+/g, " ");
-         val = val.replace(/-+/g, '-');
-         val = val.replace(/^[ |\-+]/g, '');
-         val = val.replace(/[ |\-+]$/g, '');
+         val = val.replace(/\s+/g, " "); //много пробелов в один
+         val = val.replace(/-+/g, '-'); //много дефисов в один
+         val = val.replace(/\(+/g, '('); //много скобок в один
+         val = val.replace(/\)+/g, ')'); //много скобок в один
+         val = val.replace(/^[ |\-+]/g, ''); //удаление дефисов и пробелов в начале
+         val = val.replace(/[ |\-+]$/g, ''); //удаление дефисов и пробелов в конце
          return val;
      }
 
@@ -31,6 +33,9 @@ const regex = () => {
             val = val.replace(/( |^)[ а-яё]/g, u => u.toUpperCase());
             e.target.value = val;
         });
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[^а-яё \-]/ig, '');
+        });
     });
 
     inputEmail.forEach((input) => {
@@ -40,6 +45,9 @@ const regex = () => {
             val = customTrim(val);
             e.target.value = '';
             e.target.value = val;
+        });
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[^A-Za-z-@!.*~']/g, '');
         });
     });
 
@@ -51,7 +59,10 @@ const regex = () => {
             val = customTrim(val);
             e.target.value = '';
             e.target.value = val;
-        }); 
+        });
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[^\d-)(]/g, '');
+        });
     });
 
     inputNameBottom.addEventListener('blur', (e) => {
@@ -62,12 +73,19 @@ const regex = () => {
         e.target.value = val;
     });
 
+    inputNameBottom.addEventListener('input', () => {
+        inputNameBottom.value = inputNameBottom.value.replace(/[^а-яё \-]/ig, '');
+    });
+
     inputMessageBottom.addEventListener('blur', (e) => {
         let val = e.target.value;
         val = val.replace(/[^а-яё \-]/ig, '');
         val = customTrim(val);
         e.target.value = '';
         e.target.value = val;
+    });
+   inputMessageBottom.addEventListener('input', () => {
+       inputMessageBottom.value =inputMessageBottom.value.replace(/[^а-яё \-]/ig, '');
     });
 
 };
