@@ -1,11 +1,10 @@
 const modal = () => {
-    const btnPopup = document.querySelectorAll('.popup-btn');
+    const buttons = document.querySelectorAll('.popup-btn');
     const modal = document.querySelector('.popup');
-    const closeBtn = modal.querySelector('.popup-close');
     //Переменные для анимации
     let end = 0, step = 0.05, popUpInterval = 0;
 
-    btnPopup.forEach((btn) => {
+    buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
             //Проверка размера экрана
             if(window.screen.width < 768) {
@@ -18,16 +17,6 @@ const modal = () => {
         });
     });
     
-    closeBtn.addEventListener('click', () => {
-        //Проверка размера экрана
-        if (window.screen.width < 768) {
-            modal.style.display = 'none';
-        } else {
-            modal.style.display = 'none';
-            end = 0; 
-            cancelAnimationFrame(popUpInterval);
-        }
-    });
     
     function popUpAnimation() {
         end += step;
@@ -38,6 +27,19 @@ const modal = () => {
         modal.style.opacity = end;
         popUpInterval = requestAnimationFrame(popUpAnimation);  
     }
+
+    modal.addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+            //Проверка размера экрана
+            if (window.screen.width < 768) {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'none';
+                end = 0; 
+                cancelAnimationFrame(popUpInterval);
+            }
+        }
+    });
     
 };
 

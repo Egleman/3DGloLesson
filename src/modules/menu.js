@@ -1,37 +1,37 @@
 const menu = () => {
-    const menuBtn = document.querySelector('.menu');
     const menu = document.querySelector('menu');
-    const closeBtn = menu.querySelector('.close-btn');
-    const menuItem = menu.querySelectorAll('ul>li>a[href*="#"]');
     const mainBlock = document.querySelector('main');
-    const mainLink = mainBlock.querySelector('a[href*="#"]');
 
     const heandlMenu = () => {
         menu.classList.toggle('active-menu');
     };
 
-    menuBtn.addEventListener('click', heandlMenu);
-    closeBtn.addEventListener('click', heandlMenu);
-
-    menuItem.forEach((item) => {
-        item.addEventListener('click', (e) => {
+    document.body.addEventListener('click', (e) => {
+        let target = e.target;
+        let its_menu = target == menu || menu.contains(target);
+        let menu_is_active = menu.classList.contains('active-menu');
+        if(target.closest('.menu')) {
+            heandlMenu();
+        } else if (target.closest('.close-btn')) {
+            heandlMenu();
+        } else if (target.closest('a[href*="#"]') && mainBlock.contains(target)) {
             e.preventDefault();
-            const blockId = item.getAttribute('href');
-            document.querySelector('' + blockId).scrollIntoView({
+            const blockId = target.closest('a[href*="#"]').getAttribute('href');
+            document.querySelector(blockId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else if (target.closest('a[href*="#"]') && menu.contains(target)) {
+            e.preventDefault();
+            const blockId = target.getAttribute('href');
+            document.querySelector(blockId).scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
             heandlMenu();
-        });
-    });
-
-    mainLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const blockId = mainLink.getAttribute('href');
-        document.querySelector('' + blockId).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+        } else if (!its_menu && menu_is_active) {
+            heandlMenu();
+        }
     });
 };
 export default menu;
