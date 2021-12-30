@@ -35,19 +35,6 @@ const calc = (price = 100) => {
         } else {
             totalValue = 0;
         }
-        /*
-        function animate() {
-            end += step;
-            if (end >= totalValue) {
-                end = totalValue;
-                cancelAnimationFrame(animInterval);
-            }
-            total.textContent = end;
-            animInterval = requestAnimationFrame(animate);
-        }
-
-        animInterval = requestAnimationFrame(animate);
-        */
         animate({
             duration: 1000,
             timing(timeFraction) {
