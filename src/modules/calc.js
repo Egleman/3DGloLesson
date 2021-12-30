@@ -7,8 +7,6 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day');
     const total = document.querySelector('#total');
 
-    
-
     const countCalc = () => {
         const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
         const calcSquareValue = calcSquare.value;
@@ -16,9 +14,6 @@ const calc = (price = 100) => {
         let totalValue = 0;
         let calcCountValue = 1;
         let calcDayValue = 1;
-
-        //переменные для анимации
-        let end = 0, step = 50, animInterval = 0;
 
         if (calcCount.value > 1) {
             calcCountValue += +calcCount.value / 10;
