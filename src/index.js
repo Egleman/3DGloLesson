@@ -5,6 +5,7 @@ import regex from './modules/regex';
 import tabs from './modules/tabs';
 import slider from './modules/slider';
 import calc from './modules/calc';
+import sendForm from './modules/sendForm';
 timer('31 december 2021');
 menu();
 modal();
@@ -15,3 +16,31 @@ slider('dot', 'dot-active', 'portfolio-item',
 'arrow-right', 'arrow-left', 'portfolio-dots',
 'portfolio-content');
 calc();
+sendForm({ 
+    formId: 'form1', 
+    someElem: [
+        {
+            type: 'block',
+            id: 'total'
+        }
+    ] 
+});
+sendForm({ 
+    formId: 'form2', 
+    someElem: [
+        {
+            type: 'block',
+            id: 'total'
+        }
+    ] 
+});
+sendForm({ 
+    formId: 'form3', 
+    someElem: [
+        {
+            type: 'block',
+            id: 'total'
+        }
+    ] 
+});
+
