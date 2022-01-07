@@ -35,6 +35,11 @@ const sendForm = ({ formId, someElem = [] }) => {
         
         return success;
     };
+    function unBlockBody() {
+        const body = document.body;
+        body.style.overflow = 'auto';
+        body.style.marginRight = `0`;
+    }
 
     const sendData = async (data) => {
         const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -102,6 +107,7 @@ const sendForm = ({ formId, someElem = [] }) => {
                 const modal = document.querySelector('.popup');
                     setTimeout(() => {
                         modal.style.display = 'none';
+                        unBlockBody();
                     }, 4000);
             })
             .catch(err => {
