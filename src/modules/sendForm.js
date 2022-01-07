@@ -9,10 +9,31 @@ const sendForm = ({ formId, someElem = [] }) => {
 
     const validate = (list) => {
         let success = true;
-        list.forEach(input => {
-            if (input.value == '') {
-                success = false;
+        
+        list.forEach((item) => {
+            if (item.classList.contains('form-email')) {
+                if (!item.value.match(/.+@.+\..+/gi)) {
+                    success = false;
+                    return false;
+                }
+            } else if (item.classList.contains('form-phone')) {
+                if (!item.value.match(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{6,}$/gi)) {
+                    success = false;
+                    return false;
+                }
+            } else if (item.classList.contains('form-name') || item.classList.contains('top-form')) {
+                if (!item.value.match(/^[а-яА-Я][а-яА-Я- ]+[а-яА-Я]?$/g)) {
+                    success = false;
+                    return false;
+                }
+            } else if (item.classList.contains('mess')) {
+                if (item.value.match(/[a-zA-Z'][a-zA-Z']+[a-zA-Z']?$/gi)) {
+                    success = false;
+                    console.log(item);
+                    return false;
+                }
             }
+
         });
         
         return success;

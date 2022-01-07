@@ -8,7 +8,6 @@ const regex = () => {
     const inputNameBottom = document.querySelector('#form2-name');
     const inputMessageBottom = document.querySelector('#form2-message');
 
-
      function customTrim(val) {
          val = val.replace(/\s+/g, " "); //много пробелов в один
          val = val.replace(/-+/g, '-'); //много дефисов в один
@@ -28,26 +27,26 @@ const regex = () => {
     inputName.forEach((input) => {
         input.addEventListener('blur', (e) => {
             let val = e.target.value;
-            val = val.replace(/[^а-яё \-]/ig, '');
+            val = val.replace(/[^а-яё \-]$/ig, '');
             val = customTrim(val);
             val = val.replace(/( |^)[ а-яё]/g, u => u.toUpperCase());
             e.target.value = val;
         });
         input.addEventListener('input', () => {
-            input.value = input.value.replace(/[^а-яё \-]/ig, '');
+            input.value = input.value.replace(/[^а-яё \-}]$/ig, '');
         });
     });
 
     inputEmail.forEach((input) => {
         input.addEventListener('blur', (e) => {
             let val = e.target.value;
-            val = val.replace(/[^A-Za-z-@!.*~']/g, '');
+            val = val.replace(/[^dA-Za-z-@!.*~'\d]/g, '');
             val = customTrim(val);
             e.target.value = '';
             e.target.value = val;
         });
         input.addEventListener('input', () => {
-            input.value = input.value.replace(/[^A-Za-z-@!.*~']/g, '');
+            input.value = input.value.replace(/[^A-Za-z-@!.*~'\d]/g, '');
         });
     });
 
