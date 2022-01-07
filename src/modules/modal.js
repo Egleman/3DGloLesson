@@ -8,8 +8,10 @@ const modal = () => {
             //Проверка размера экрана
             if(window.screen.width < 768) {
                 modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
             } else {
                 modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
                 modal.style.opacity = '0';
                 animate({
                     duration: 500,
@@ -27,6 +29,7 @@ const modal = () => {
     modal.addEventListener('click', (e) => {
         if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
             modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     });
     
