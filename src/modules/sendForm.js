@@ -5,33 +5,30 @@ const sendForm = ({ formId, someElem = [] }) => {
     const loadText = 'Загрузка...';
     const errorText = 'Ошибка...';
     const successText = 'Спасибо, наш менеджер с вами свяжется';
-    let isValid = true;
 
     const validate = (list) => {
         let success = true;
         
         list.forEach((item) => {
+            
             if (item.classList.contains('form-email')) {
                 if (!item.value.match(/.+@.+\..+/gi)) {
                     success = false;
-                    return false;
                 }
             } else if (item.classList.contains('form-phone')) {
                 if (!item.value.match(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{6,}$/gi)) {
                     success = false;
-                    return false;
                 }
             } else if (item.classList.contains('form-name') || item.classList.contains('top-form')) {
                 if (!item.value.match(/^[а-яА-Я][а-яА-Я- ]+[а-яА-Я]?$/g)) {
                     success = false;
-                    return false;
                 }
             } else if (item.classList.contains('mess')) {
                 if (item.value.match(/[a-zA-Z'][a-zA-Z']+[a-zA-Z']?$/gi)) {
                     success = false;
-                    console.log(item);
-                    return false;
                 }
+            } else if(item.value == '') {
+                success = false;
             }
 
         });
@@ -55,22 +52,25 @@ const sendForm = ({ formId, someElem = [] }) => {
         const formData = new FormData(form);
         const formBody = {};
 
-        statusBlock.textContent = 'Загрузка...';
+        statusBlock.textContent = loadText;
         statusBlock.style.color = 'white';
-    
-        if (form.contains(done)) {
-            form.removeChild(done);
+
+        if(validate(formElements)) {
+            if (form.contains(done)) {
+                form.removeChild(done);
+            }
+        
+            if (form.contains(errorForm)) {
+                form.removeChild(errorForm);
+            }
+            if (form.contains(preload)) {
+                form.removeChild(preload);
+            }
+        
+            form.append(statusBlock);
+            form.append(preload);
         }
-    
-        if (form.contains(errorForm)) {
-            form.removeChild(errorForm);
-        }
-        if (form.contains(preload)) {
-            form.removeChild(preload);
-        }
-    
-        form.append(statusBlock);
-        form.append(preload);
+        
         
         formData.forEach((val, key) => {
             formBody[key] = val;
@@ -84,7 +84,6 @@ const sendForm = ({ formId, someElem = [] }) => {
                 formBody[elem.id] = element.value;
             }
         });
-
 
         if (validate(formElements)) {
             sendData(formBody).then(data => {
@@ -100,6 +99,10 @@ const sendForm = ({ formId, someElem = [] }) => {
                     form.removeChild(done);
                     form.removeChild(statusBlock);
                 }, 5000);
+                const modal = document.querySelector('.popup');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 4000);
             })
             .catch(err => {
                 form.removeChild(preload);
@@ -113,7 +116,6 @@ const sendForm = ({ formId, someElem = [] }) => {
             });
         } else {
             alert("Данные не валидны!");
-            isValid = false;
         }
     };
     
@@ -123,19 +125,7 @@ const sendForm = ({ formId, someElem = [] }) => {
         }
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                //submitForm();
-                const formElements = form.querySelectorAll('input');
-                if(validate(formElements)) {
-                    submitForm();
-
-                    const modal = document.querySelector('.popup');
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                    }, 4000);
-                }
-                
-                //modal.style.display = 'none';
-                
+                submitForm();
             });
     } catch(error) {
         console.log(error.message);

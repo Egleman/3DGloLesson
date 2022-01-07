@@ -13,6 +13,7 @@ const menu = () => {
         if(target.closest('.menu')) {
             heandlMenu();
         } else if (target.closest('.close-btn')) {
+            e.preventDefault();
             heandlMenu();
         } else if (target.closest('a[href*="#"]') && mainBlock.contains(target)) {
             e.preventDefault();
